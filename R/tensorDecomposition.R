@@ -1,5 +1,4 @@
 #' @export tensorDecomposition
-#' @importFrom rTensor cp
 #'
 #' @title Performs CANDECOMP/PARAFAC (CP) Tensor Decomposition.
 #' @description Generate weight-averaged denoised gene regulatory networks using CANDECOMP/PARAFAC (CP) Tensor Decomposition. The \code{tensorDecomposition} function takes one or two lists of gene regulatory matrices, if two list are provided, the shared genes are selected and the CP tensor decomposition is performed independently for each list (3d-tensor). The tensor decomposed matrices are then averaged to generate weight-averaged denoised networks.
@@ -9,8 +8,10 @@
 #' @param maxError A decimal value between 0 and 1. Defines the relative Frobenius norm error tolerance
 #' @param maxIter An integer value. Defines the maximum number of iterations if error stay above \code{maxError}.
 #' @return A list of weight-averaged denoised gene regulatory networks.
+#' @author This is an adaptation of the code provided by Li, J., Bien, J., & Wells, M. T. (2018)
 #' @references 
 #' \itemize{
+#' \item Li, J., Bien, J., & Wells, M. T. (2018). rTensor: An R Package for Multidimensional Array (Tensor) Unfolding, Multiplication, and Decomposition. Journal of Statistical Software, 87(10), 1-31.
 #' \item Kolda, Tamara G., and Brett W. Bader. "Tensor decompositions and applications." SIAM review 51.3 (2009): 455-500.
 #' \item Morup, Morten. "Applications of tensor (multiway array) factorizations and decompositions in data mining." Wiley Interdisciplinary Reviews: Data Mining and Knowledge Discovery 1.1 (2011): 24-40.
 #' }
@@ -166,12 +167,12 @@ tensorDecomposition <- function(xList, yList = NULL, K = 5, maxError = 1e-5, max
     
   }
   
-  tensorX <- rTensor::as.tensor(tensorX)
   set.seed(1)
-  tensorX <- rTensor::cp(tnsr = tensorX, num_components = K, max_iter = maxIter, tol = maxError)
-  tX <- tensorX$est@data[,,,1]
+  tensorX <- as.tensor(tensorX)
+  tensorX <- cpDecomposition(tnsr = tensorX, num_components = K, max_iter = maxIter, tol = maxError)
+  tX <- tensorX$est$data[,,,1]
   for(i in seq_len(nNet)[-1]){
-    tX <- tX +  tensorX$est@data[,,,i]
+    tX <- tX +  tensorX$est$data[,,,i]
   }
   tX <- tX/nNet
   tX <- tX/max(abs(tX))
@@ -180,12 +181,12 @@ tensorDecomposition <- function(xList, yList = NULL, K = 5, maxError = 1e-5, max
   rownames(tX) <- colnames(tX) <- sGenes
   
   if(!is.null(yList)){
-    tensorY <- rTensor::as.tensor(tensorY)
     set.seed(1)
-    tensorY <- rTensor::cp(tnsr = tensorY, num_components = K, max_iter = 1e3)
-    tY <- tensorY$est@data[,,,1]
+    tensorY <- as.tensor(tensorY)
+    tensorY <- cpDecomposition(tnsr = tensorY, num_components = K, max_iter = 1e3)
+    tY <- tensorY$est$data[,,,1]
     for(i in seq_len(nNet)[-1]){
-      tY <- tY +  tensorY$est@data[,,,i]
+      tY <- tY +  tensorY$est$data[,,,i]
     }
     tY <- tY/nNet
     tY <- tY/max(abs(tY))
