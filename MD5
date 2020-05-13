@@ -1,4 +1,4 @@
-c4d2a58964f175b5f28c0486496e9387 *DESCRIPTION
+c875b0b8427a283a183c5f2885390dff *DESCRIPTION
 fec95671e5dbdae56f761d9799329898 *NAMESPACE
 0bed9145f6703f2f4988891307582cb4 *R/asTensor.R
 d6cb0a07e235672c32eb1ba6b91ac607 *R/cpDecomposition.R
@@ -6,10 +6,10 @@ d6cb0a07e235672c32eb1ba6b91ac607 *R/cpDecomposition.R
 dab06842b4226b1d965c47334e637b16 *R/dModularity.R
 78b4038089900d602c2a504e94d6bc49 *R/dRegulation.R
 6b49921e2574a6b6bf153bdafd427126 *R/makeNetworks.R
-c2a74adf5675c8d2a31971b3476ae95d *R/manifoldAlignment.R
+a1af23fe4e6ff5aa8db297f281f268e6 *R/manifoldAlignment.R
 92b4cea9778dfe6ff1b220c4fd6acd62 *R/pcNet.R
 0784d0664b72ee65a9ae2603c4bafc9d *R/scQC.R
-eedd7a25c7d5c7edaa49f285458dbd2c *R/scTenifoldNet.R
+9d8d2f229df1ed62b0711df30a7b54ca *R/scTenifoldNet.R
 16ada204224127ab82faa8d9be3e3684 *R/tensorDecomposition.R
 5a251e1b107b93c357c20337d2a4d399 *man/cpDecomposition.Rd
 fffd3774ceaf7734856d42ec353cc76e *man/cpmNormalization.Rd
