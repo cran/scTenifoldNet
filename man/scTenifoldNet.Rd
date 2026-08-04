@@ -18,6 +18,7 @@ scTenifoldNet(
   nc_symmetric = FALSE,
   nc_scaleScores = TRUE,
   nc_q = 0.05,
+  nc_priorNetwork = NULL,
   td_K = 3,
   td_nDecimal = 1,
   td_maxIter = 1000,
@@ -53,6 +54,8 @@ scTenifoldNet(
 
 \item{nc_q}{A decimal value between 0 and 1. Defines the cut-off threshold of top q\% relationships to be returned.}
 
+\item{nc_priorNetwork}{A data.frame containing a prior gene regulatory network. The data.frame must have two columns: `regulators` and `targets`. Default: NULL.}
+
 \item{td_K}{An integer value. Defines the number of rank-one tensors used to approximate the data using CANDECOMP/PARAFAC (CP) Tensor Decomposition.}
 
 \item{td_nDecimal}{An integer value indicating the number of decimal places to be used.}
@@ -74,7 +77,10 @@ A list with 3 slots as follows:
 }
 }
 \description{
-Construct and compare single-cell gene regulatory networks (scGRNs) using single-cell RNA-seq (scRNA-seq) data sets collected from different conditions based on principal component regression, tensor decomposition, and manifold alignment.
+Construct and compare single-cell gene regulatory networks
+  (scGRNs) using single-cell RNA-seq (scRNA-seq) data sets collected from
+  different conditions based on principal component regression, tensor
+  decomposition, and manifold alignment.
 }
 \examples{
 library(scTenifoldNet)

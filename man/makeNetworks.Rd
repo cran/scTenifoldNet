@@ -2,7 +2,8 @@
 % Please edit documentation in R/makeNetworks.R
 \name{makeNetworks}
 \alias{makeNetworks}
-\title{Computes gene regulatory networks for subsamples of cells based on principal component regression.}
+\title{Computes gene regulatory networks for subsamples of cells based on
+  principal component regression.}
 \usage{
 makeNetworks(
   X,
@@ -12,7 +13,9 @@ makeNetworks(
   scaleScores = TRUE,
   symmetric = FALSE,
   q = 0.95,
-  nCores = parallel::detectCores()
+  priorNetwork = NULL,
+  nCores = parallel::detectCores(),
+  label = NULL
 )
 }
 \arguments{
@@ -30,13 +33,25 @@ makeNetworks(
 
 \item{q}{A decimal value between 0 and 1. Represent the cut-off threshold of top q\% relationships to be returned.}
 
+\item{priorNetwork}{A data.frame containing a prior gene regulatory network. The data.frame must have two columns: `regulators` and `targets`. Default: NULL.}
+
 \item{nCores}{An integer value. Defines the number of cores to be used.}
+
+\item{label}{Optional character label (e.g. "X", "Y") prepended to
+progress messages when running inside a pipeline.}
 }
 \value{
 A list with \code{nNet} gene regulatory networks in dgCMatrix format. Each one computed from a randomly selected subsample of \code{nCells} cells.
 }
 \description{
-This function computes \code{nNet} gene regulatory networks for a randomly selected subsample of \code{nCells} cells based on principal component regression (PCR), a technique based on principal component analysis. In PCR, the outcome variable is regressed over a \code{nComp} number of for principal components computed from a set of covariates to estimate the unknown regression coefficients in the model. \code{pcNet} function computes the PCR coefficients for each gene one at a time using all the others as covariates, to construct an all by all gene regulatory network.
+This function computes \code{nNet} gene regulatory networks for
+  a randomly selected subsample of \code{nCells} cells based on principal
+  component regression (PCR), a technique based on principal component
+  analysis. In PCR, the outcome variable is regressed over a \code{nComp}
+  number of principal components computed from a set of covariates to estimate
+  the unknown regression coefficients in the model. \code{pcNet} computes the
+  PCR coefficients for each gene one at a time using all the others as
+  covariates, to construct an all-by-all gene regulatory network.
 }
 \details{
 Principal component regression may be broadly divided into three major steps: \enumerate{
